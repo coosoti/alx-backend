@@ -26,7 +26,8 @@ class FIFOCache(BaseCaching):
             self.cache_data_list.append(key)
             if len(self.cache_data) > BaseCaching.MAX_ITEMS:
                 self.cache_data.pop(self.cache_data_list[0])
-                print("DISCORD: {}".format(self.cache_data_list.pop(0)))
+                deleted = self.cache_data_list.pop(0)
+                print("DISCORD: {}".format(deleted))
 
     def get(self, key):
         """
