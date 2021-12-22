@@ -30,11 +30,11 @@ class MRUCache(BaseCaching):
             else:
                 self.cache_data_order.remove(key)
                 self.cache_data_order.append(key)
-                if len(self.cache_data_order) > BaseCaching.MAX_ITEMS:
-                    length_c = len(self.cache_data_order)
-                    popped = self.cache_data_order.pop(length_c - 2)
-                    del self.cache_data[popped]
-                    print("DISCARD: {}".format(str(popped)))
+            if len(self.cache_data_order) > BaseCaching.MAX_ITEMS:
+                length_c = len(self.cache_data_order)
+                popped = self.cache_data_order.pop(length_c - 2)
+                del self.cache_data[popped]
+                print("DISCARD: {}".format(str(popped)))
 
     def get(self, key):
         """
