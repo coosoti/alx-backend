@@ -27,7 +27,14 @@ app.config.from_object('1-app.Config')
 @app.route('/', strict_slashes=False)
 def index() -> str:
     """this route renders 0-index.html template"""
-    return render_template('1-index.html')
+    return render_template('2-index.html')
+
+
+@babel.localeselector
+def get_locale() -> str:
+    """this method determine the best match with our supported languages"""
+    return request.accept_languages.best_match(app.config['LANGUAGES'])
+
 
 if __name__ == "__main__":
     host = getenv("API_HOST", "0.0.0.0")
