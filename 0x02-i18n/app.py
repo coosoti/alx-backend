@@ -4,12 +4,14 @@
     a single route '/'
 """
 
-
+import datetime
 from flask import Flask, g, render_template, request
 from flask_babel import Babel
 from os import getenv
 
 from pytz import timezone
+import pytz.exceptions
+
 
 users = {
     1: {"name": "Balou", "locale": "fr", "timezone": "Europe/Paris"},
@@ -36,7 +38,7 @@ app.config.from_object(Config)
 @app.route('/', methods=['GET'], strict_slashes=False)
 def index() -> str:
     """this route renders 0-index.html template"""
-    return render_template('7-index.html')
+    return render_template('index.html')
 
 
 @babel.localeselector
@@ -91,9 +93,11 @@ def get_user():
 def before_request():
     """this function forces this method to be executed before any other"""
     g.user = get_user()
+    utcNow = pytz.utc.localize(datetime.datetime.utcnow())
+    g.current_time = utcNow.astimezone(pytz.timezone(get_timezone()))
 
 
 if __name__ == "__main__":
     host = getenv("API_HOST", "0.0.0.0")
     port = getenv("API_PORT", "5000")
-    app.run(host=host, port=port)
+    app.run(debug=True, host=host, port=port)
