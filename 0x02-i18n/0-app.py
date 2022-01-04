@@ -13,7 +13,7 @@ app = Flask(__name__, static_url_path='')
 
 
 @app.route('/', strict_slashes=False)
-def index():
+def index() -> str:
     """this route renders 0-index.html template"""
     return render_template('0-index.html')
 
